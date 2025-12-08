@@ -181,7 +181,7 @@ export default function OptionForm({ onSubmit, isLoading = false }: OptionFormPr
             name="mc_simulations"
             value={formData.mc_simulations}
             onChange={handleChange}
-            step="1000"
+            step="100"
             min="100"
             max="10000000"
             required

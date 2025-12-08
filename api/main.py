@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from api.routers import pricing
+from api.routers import pricing, greeks, hedging
 from api.schemas import HealthResponse
 
 app = FastAPI(
@@ -23,6 +23,8 @@ app.add_middleware(
 
 # Include routers
 app.include_router(pricing.router)
+app.include_router(greeks.router)
+app.include_router(hedging.router)
 
 
 @app.get("/", response_model=HealthResponse)

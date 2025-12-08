@@ -31,7 +31,6 @@ def price_european(
     disc = math.exp(-r * dt)
     p = (math.exp(r * dt) - d) / (u - d)
     if not (0 <= p <= 1):
-        # For extreme params, p can numerically go outside [0,1]; clamp reasonably
         p = min(1.0, max(0.0, p))
 
     # Asset prices at maturity

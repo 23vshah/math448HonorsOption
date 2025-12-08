@@ -6,6 +6,10 @@ import ResultsDisplay from "@/components/ResultsDisplay";
 import PriceChart from "@/components/PriceChart";
 import ParameterSensitivity from "@/components/ParameterSensitivity";
 import ConvergenceAnalysis from "@/components/ConvergenceAnalysis";
+import GreeksDisplay from "@/components/GreeksDisplay";
+import GreeksSensitivity from "@/components/GreeksSensitivity";
+import GreeksComparison from "@/components/GreeksComparison";
+import HedgingAnalysis from "@/components/HedgingAnalysis";
 import { calculatePricing } from "@/lib/api";
 import type { PricingRequest, PricingResponse, ConvergenceRequest } from "@/lib/types";
 
@@ -14,7 +18,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [lastRequest, setLastRequest] = useState<PricingRequest | null>(null);
-  const [activeTab, setActiveTab] = useState<"pricing" | "convergence">("pricing");
+  const [activeTab, setActiveTab] = useState<"pricing" | "convergence" | "greeks" | "hedging">("pricing");
 
   const handleCalculate = async (request: PricingRequest) => {
     setIsLoading(true);
@@ -95,6 +99,26 @@ export default function Home() {
                 >
                   Convergence Analysis
                 </button>
+                <button
+                  onClick={() => setActiveTab("greeks")}
+                  className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                    activeTab === "greeks"
+                      ? "border-blue-500 text-blue-600"
+                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  }`}
+                >
+                  Greeks Analysis
+                </button>
+                <button
+                  onClick={() => setActiveTab("hedging")}
+                  className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                    activeTab === "hedging"
+                      ? "border-blue-500 text-blue-600"
+                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  }`}
+                >
+                  Delta Hedging
+                </button>
               </nav>
             </div>
           </div>
@@ -120,6 +144,20 @@ export default function Home() {
         {activeTab === "convergence" && (
           <div>
             <ConvergenceAnalysis baseParams={convergenceRequest} />
+          </div>
+        )}
+
+        {activeTab === "greeks" && lastRequest && (
+          <div className="space-y-6">
+            <GreeksDisplay baseParams={lastRequest} />
+            <GreeksSensitivity baseParams={lastRequest} />
+            <GreeksComparison baseParams={lastRequest} />
+          </div>
+        )}
+
+        {activeTab === "hedging" && lastRequest && (
+          <div>
+            <HedgingAnalysis baseParams={lastRequest} />
           </div>
         )}
       </div>
