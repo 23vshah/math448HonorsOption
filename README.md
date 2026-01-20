@@ -2,7 +2,7 @@
 
 An interactive web application for comparing option pricing models: Black-Scholes, Binomial Tree (CRR), and Monte Carlo simulation. Built with FastAPI backend and Next.js frontend.
 
-## Features
+## The Features
 
 - **Multi-Model Comparison**: Compare prices from Black-Scholes analytical formula, Binomial Tree model, and Monte Carlo simulation
 - **Interactive Parameter Input**: Adjust option parameters (S₀, K, r, σ, T) and see real-time results
